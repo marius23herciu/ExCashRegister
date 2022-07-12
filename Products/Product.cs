@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExCashRegister.Products
 {
-    class Product
+    class Product:IProduct
     {
         public string nameOfProduct;
         /// <summary>
@@ -19,9 +19,19 @@ namespace ExCashRegister.Products
         }
         public double Price { get; private set; }
 
+        public string GetName()
+        {
+            return this.nameOfProduct;
+        }
+
+        public double GetPrice()
+        {
+            return this.Price;
+        }
+
         public override string ToString()
         {
-            return $"{nameOfProduct} {Price}";
+            return $"{GetName()} {GetPrice()}";
         }
     }
 }

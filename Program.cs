@@ -16,6 +16,7 @@ namespace ExCashRegister
             var product3 = new Products.Product("oven", 1500);
             var product4 = new Products.Product("USB cable", 20);
 
+            
             var cashRegister = new CashRegister();
 
             bool sale = cashRegister.PayCash(cashRegister.ScanProduct(product3));

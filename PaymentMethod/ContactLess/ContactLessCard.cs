@@ -1,16 +1,24 @@
-﻿using System;
+﻿using ExCashRegister.PaymentMethod.ContactFull;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ExCashRegister.PaymentMethod.ContactLess
 {
-    interface IContactLessPay
+    class ContactLessCard : ClassicCard, IContactLessPay
     {
-        void TouchTheSensor();
-        bool WithdrawMoney(double sum, bool moneyWithdrawn);
-    }
-    class ContactLessCard : IContactLessPay
-    {
+        /// <summary>
+        /// Creates Contactless Card
+        /// </summary>
+        /// <param name="currentValue"></param>
+        public ContactLessCard(double currentValue):base (currentValue)
+        {
+            
+        }
+        public override string ToString()
+        {
+            return "Contactless card";
+        }
         /// <summary>
         /// Makes paying device available.
         /// </summary>
@@ -24,7 +32,7 @@ namespace ExCashRegister.PaymentMethod.ContactLess
         /// <param name="sum"></param>
         /// <param name="moneyWithdrawn"></param>
         /// <returns></returns>
-        public bool WithdrawMoney(double sum, bool moneyWithdrawn)
+        public bool WithdrawMoneyContactLess(double sum, bool moneyWithdrawn)
         {
             if (this.availableForOperations == true && sum <= this.currentValue)
             {
@@ -35,20 +43,6 @@ namespace ExCashRegister.PaymentMethod.ContactLess
             Console.WriteLine("Payment canceled!");
             this.availableForOperations = false;
             return moneyWithdrawn = false;
-        }
-        public bool availableForOperations = false;
-        private double currentValue;
-        /// <summary>
-        /// Creates Contactless Card
-        /// </summary>
-        /// <param name="currentValue"></param>
-        public ContactLessCard(double currentValue)
-        {
-            this.currentValue = currentValue;
-        }
-        public override string ToString()
-        {
-            return "Contactless card";
         }
     }
 }

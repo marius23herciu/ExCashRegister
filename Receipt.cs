@@ -40,9 +40,9 @@ namespace ExCashRegister
         /// </summary>
         /// <param name="price"></param>
         /// <param name="contactLessCard"></param>
-        public PosReceipt(double price, ContactLessCard contactLessCard) : base(price)
+        public PosReceipt(double price, Phone phone) : base(price)
         {
-            this.description = $"paied with {contactLessCard}";
+            this.description = $"paied with {phone}";
         }
         public override string ToString()
         {

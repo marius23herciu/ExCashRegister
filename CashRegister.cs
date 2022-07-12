@@ -24,9 +24,9 @@ namespace ExCashRegister
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        public double ScanProduct(Product product)
+        public double ScanProduct(IProduct product)
         {
-            return product.Price;
+            return product.GetPrice();
         }
         /// <summary>
         /// Adds money to cash register by cash operation.
@@ -75,9 +75,9 @@ namespace ExCashRegister
         /// <param name="sum"></param>
         /// <param name="contactLessCard"></param>
         /// <returns></returns>
-        public PosReceipt CreatePosReceipt(double sum, ContactLessCard contactLessCard)
+        public PosReceipt CreatePosReceipt(double sum, Phone phone)
         {
-            return new PosReceipt(sum, contactLessCard);
+            return new PosReceipt(sum, phone);
         }
         /// <summary>
         ///  Adds money to cash register by contactfull payment.
@@ -112,10 +112,10 @@ namespace ExCashRegister
         /// <param name="sum"></param>
         /// <param name="contactLessCard"></param>
         /// <returns></returns>
-        public bool PayWithPOS(POS pos, double sum, ContactLessCard contactLessCard)
+        public bool PayWithPOS(POS pos, double sum, Phone phone)
         {
             double initialValue = currentValue;
-            bool payment = pos.Pay(sum, contactLessCard);
+            bool payment = pos.Pay(sum, phone);
             if (payment == true)
             {
                 this.safeClosed = false;
@@ -170,10 +170,11 @@ namespace ExCashRegister.ReceiptExtension
         /// <param name="cashRegister"></param>
         /// <param name="sum"></param>
         /// <param name="contactLessCard"></param>
-        public static void PrintPOSReceipt(this CashRegister cashRegister, double sum, ContactLessCard contactLessCard)
+        public static void PrintPOSReceipt(this CashRegister cashRegister, double sum, Phone phone)
         {
-            Console.WriteLine(cashRegister.CreatePosReceipt(sum, contactLessCard));
+            Console.WriteLine(cashRegister.CreatePosReceipt(sum, phone));
         }
+
     }
 
 }

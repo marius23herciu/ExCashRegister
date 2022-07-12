@@ -4,12 +4,6 @@ using System.Text;
 
 namespace ExCashRegister.PaymentMethod.ContactFull
 {
-    interface IContactFullPay
-    {
-        void InsertCard();
-        bool WithdrawMoney(double sum, bool moneyWithdrawn);
-        void ExtractCard();
-    }
     class ClassicCard : IContactFullPay
     {
         /// <summary>
@@ -25,7 +19,7 @@ namespace ExCashRegister.PaymentMethod.ContactFull
         /// <param name="sum"></param>
         /// <param name="moneyWithdrawn"></param>
         /// <returns></returns>
-        public bool WithdrawMoney(double sum, bool moneyWithdrawn)
+        public bool WithdrawMoneyContactFull(double sum, bool moneyWithdrawn)
         {
             if (this.availableForOperations == true && sum <= this.currentValue)
             {
@@ -42,10 +36,8 @@ namespace ExCashRegister.PaymentMethod.ContactFull
         {
             this.availableForOperations = false;
         }
-
-
         public bool availableForOperations = false;
-        private double currentValue;
+        public double currentValue;
         /// <summary>
         /// Creates contactfull card.
         /// </summary>

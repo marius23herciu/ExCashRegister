@@ -1,4 +1,5 @@
-﻿using ExCashRegister.PaymentMethod.ContactFull;
+﻿using ExCashRegister.PaymentMethod;
+using ExCashRegister.PaymentMethod.ContactFull;
 using ExCashRegister.PaymentMethod.ContactLess;
 
 namespace ExCashRegister
@@ -19,10 +20,11 @@ namespace ExCashRegister
         {
             bool moneyWithdrawn = false;
             contactFullPay.InsertCard();
-            moneyWithdrawn = contactFullPay.WithdrawMoney(sum, moneyWithdrawn);
+            moneyWithdrawn = contactFullPay.WithdrawMoneyContactFull(sum, moneyWithdrawn);
             contactFullPay.ExtractCard();
             return moneyWithdrawn;
         }
+        
         /// <summary>
         /// Pay with contactless device.
         /// </summary>
@@ -33,7 +35,7 @@ namespace ExCashRegister
         {
             bool moneyWithdrawn = false;
             contactLessPay.TouchTheSensor();
-            moneyWithdrawn = contactLessPay.WithdrawMoney(sum, moneyWithdrawn);
+            moneyWithdrawn = contactLessPay.WithdrawMoneyContactLess(sum, moneyWithdrawn);
             return moneyWithdrawn;
         }
     }
