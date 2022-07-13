@@ -5,7 +5,7 @@ using System.Text;
 namespace ExCashRegister.PaymentMethod.ContactLess
 {
 
-    class Phone :  IContactLessPay
+    class Phone : PaymentDevice, IContactLessPay
     {
         public void TouchTheSensor()
         {
@@ -23,15 +23,13 @@ namespace ExCashRegister.PaymentMethod.ContactLess
             this.availableForOperations = false;
             return moneyWithdrawn = false;
         }
-        public bool availableForOperations = false;
-        private double currentValue;
         /// <summary>
         /// Creates contactless phone.
         /// </summary>
         /// <param name="currentValue"></param>
-        public Phone(double currentValue) 
+        public Phone(double currentValue) : base(currentValue)
         {
-            this.currentValue = currentValue;
+
         }
         public override string ToString()
         {

@@ -1,6 +1,7 @@
 ﻿using ExCashRegister.PaymentMethod.ContactFull;
 using ExCashRegister.PaymentMethod.ContactLess;
 using ExCashRegister.ReceiptExtension;
+using ExCashRegister.ReceiptPOSExtension;
 using System;
 
 namespace ExCashRegister
@@ -16,7 +17,7 @@ namespace ExCashRegister
             var product3 = new Products.Product("oven", 1500);
             var product4 = new Products.Product("USB cable", 20);
 
-            
+
             var cashRegister = new CashRegister();
 
             bool sale = cashRegister.PayCash(cashRegister.ScanProduct(product3));
@@ -34,19 +35,19 @@ namespace ExCashRegister
             sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), cashRegister.ScanProduct(product3), classicCard);
             if (sale == true)
             {
-                cashRegister.PrintPOSReceipt(cashRegister.ScanProduct(product3), classicCard);
+                cashRegister.GetPOS().PrintPOSReceipt(cashRegister.ScanProduct(product3), classicCard);
                 cashRegister.PrintReceipt(cashRegister.ScanProduct(product3));
             }
-            sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), cashRegister.ScanProduct(product1), contactLessCard);
+            sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), cashRegister.ScanProduct(product2), contactLessCard);
             if (sale == true)
             {
-                cashRegister.PrintPOSReceipt(cashRegister.ScanProduct(product1), contactLessCard);
+                cashRegister.GetPOS().PrintPOSReceipt(cashRegister.ScanProduct(product1), contactLessCard);
                 cashRegister.PrintReceipt(cashRegister.ScanProduct(product1));
             }
             sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), cashRegister.ScanProduct(product2), phone);
             if (sale == true)
             {
-                cashRegister.PrintPOSReceipt(cashRegister.ScanProduct(product2), phone);
+                cashRegister.GetPOS().PrintPOSReceipt(cashRegister.ScanProduct(product2), phone);
                 cashRegister.PrintReceipt(cashRegister.ScanProduct(product2));
             }
 
@@ -107,7 +108,7 @@ namespace ExCashRegister
                         sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), totalAmount, classicCard);
                         if (sale == true)
                         {
-                            cashRegister.PrintPOSReceipt(totalAmount, classicCard);
+                            cashRegister.GetPOS().PrintPOSReceipt(totalAmount, classicCard);
                             cashRegister.PrintReceipt(totalAmount);
                         }
                     }
@@ -116,7 +117,7 @@ namespace ExCashRegister
                         sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), totalAmount, contactLessCard);
                         if (sale == true)
                         {
-                            cashRegister.PrintPOSReceipt(totalAmount, contactLessCard);
+                            cashRegister.GetPOS().PrintPOSReceipt(totalAmount, contactLessCard);
                             cashRegister.PrintReceipt(totalAmount);
                         }
                     }
@@ -125,7 +126,7 @@ namespace ExCashRegister
                         sale = cashRegister.PayWithPOS(cashRegister.GetPOS(), totalAmount, phone);
                         if (sale == true)
                         {
-                            cashRegister.PrintPOSReceipt(totalAmount, phone);
+                            cashRegister.GetPOS().PrintPOSReceipt(totalAmount, phone);
                             cashRegister.PrintReceipt(totalAmount);
                         }
                     }

@@ -11,9 +11,9 @@ namespace ExCashRegister.PaymentMethod.ContactLess
         /// Creates Contactless Card
         /// </summary>
         /// <param name="currentValue"></param>
-        public ContactLessCard(double currentValue):base (currentValue)
+        public ContactLessCard(double currentValue) : base(currentValue)
         {
-            
+
         }
         public override string ToString()
         {

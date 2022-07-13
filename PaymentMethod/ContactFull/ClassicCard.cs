@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExCashRegister.PaymentMethod.ContactFull
 {
-    class ClassicCard : IContactFullPay
+    class ClassicCard : PaymentDevice, IContactFullPay
     {
         /// <summary>
         /// Makes card available for operations.
@@ -36,15 +36,13 @@ namespace ExCashRegister.PaymentMethod.ContactFull
         {
             this.availableForOperations = false;
         }
-        public bool availableForOperations = false;
-        public double currentValue;
         /// <summary>
         /// Creates contactfull card.
         /// </summary>
         /// <param name="currentValue"></param>
-        public ClassicCard(double currentValue)
+        public ClassicCard(double currentValue) : base(currentValue)
         {
-            this.currentValue = currentValue;
+
         }
         public override string ToString()
         {

@@ -1,4 +1,5 @@
-﻿using ExCashRegister.PaymentMethod.ContactFull;
+﻿using ExCashRegister.PaymentMethod;
+using ExCashRegister.PaymentMethod.ContactFull;
 using ExCashRegister.PaymentMethod.ContactLess;
 using ExCashRegister.Products;
 using System;
@@ -60,36 +61,17 @@ namespace ExCashRegister
             return new Receipt(sum);
         }
         /// <summary>
-        /// Creates a receipt for POS.
-        /// </summary>
-        /// <param name="sum"></param>
-        /// <param name="classicCard"></param>
-        /// <returns></returns>
-        public PosReceipt CreatePosReceipt(double sum, ClassicCard classicCard)
-        {
-            return new PosReceipt(sum, classicCard);
-        }
-        /// <summary>
-        /// Creates a receipt for POS.
-        /// </summary>
-        /// <param name="sum"></param>
-        /// <param name="contactLessCard"></param>
-        /// <returns></returns>
-        public PosReceipt CreatePosReceipt(double sum, Phone phone)
-        {
-            return new PosReceipt(sum, phone);
-        }
-        /// <summary>
-        ///  Adds money to cash register by contactfull payment.
+        /// Activates POS payment.
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="sum"></param>
-        /// <param name="classicCard"></param>
+        /// <param name="paymentDevice"></param>
         /// <returns></returns>
-        public bool PayWithPOS(POS pos, double sum, ClassicCard classicCard)
+        public bool PayWithPOS(POS pos, double sum, PaymentDevice paymentDevice)
         {
-            double initialValue = currentValue;
-            bool payment = pos.Pay(sum, classicCard);
+            double initialValue = this.currentValue;
+
+            bool payment = pos.DetectPaymentMethod(pos, sum, paymentDevice);
             if (payment == true)
             {
                 this.safeClosed = false;
@@ -99,37 +81,12 @@ namespace ExCashRegister
                 this.safeClosed = true;
                 Console.WriteLine("Safe closed.");
             }
-            if (initialValue == currentValue)
+            if (initialValue == this.currentValue)
             {
                 return false;
             }
             return true;
-        }
-        /// <summary>
-        ///  Adds money to cash register by cantactless payment.
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="sum"></param>
-        /// <param name="contactLessCard"></param>
-        /// <returns></returns>
-        public bool PayWithPOS(POS pos, double sum, Phone phone)
-        {
-            double initialValue = currentValue;
-            bool payment = pos.Pay(sum, phone);
-            if (payment == true)
-            {
-                this.safeClosed = false;
-                Console.WriteLine("Safe open.");
-                this.currentValue += sum;
-                Console.WriteLine($"{sum} added to cash register.");
-                this.safeClosed = true;
-                Console.WriteLine("Safe closed.");
-            }
-            if (initialValue == currentValue)
-            {
-                return false;
-            }
-            return true;
+
         }
         /// <summary>
         /// Returns POS device for payment.
@@ -154,27 +111,6 @@ namespace ExCashRegister.ReceiptExtension
         {
             Console.WriteLine($"{cashRegister.CreateCashRegisterReceipt(sum)}");
         }
-        /// <summary>
-        /// Creates and prints POS receipt.
-        /// </summary>
-        /// <param name="cashRegister"></param>
-        /// <param name="sum"></param>
-        /// <param name="classicCard"></param>
-        public static void PrintPOSReceipt(this CashRegister cashRegister, double sum, ClassicCard classicCard)
-        {
-            Console.WriteLine(cashRegister.CreatePosReceipt(sum, classicCard));
-        }
-        /// <summary>
-        /// Creates and prints POS receipt.
-        /// </summary>
-        /// <param name="cashRegister"></param>
-        /// <param name="sum"></param>
-        /// <param name="contactLessCard"></param>
-        public static void PrintPOSReceipt(this CashRegister cashRegister, double sum, Phone phone)
-        {
-            Console.WriteLine(cashRegister.CreatePosReceipt(sum, phone));
-        }
-
     }
 
 }
